@@ -1,33 +1,33 @@
 from sys import stdin
-from unicodedata import digit
+from math import log2, ceil
 
-max_n_value = 2**32
-aux = False
+LOG2_10 = log2(10)
+EPS = 1e-12
+mem_arch = {}
 
-def archeologist(n, num_digits):
-    str_n = str(n)
-    for i in range(0, max_n_value + 1):
-        power_of_2 = 2 ** i
-        str_power = str(power_of_2)
 
-        for j in range(0, num_digits):
-            n_digit = int(str_n[j]) if j < len(str_n) else 0
-            pow_digit = int(str_power[j]) if j < len(str_power) else 0
-            if(n_digit == pow_digit):
-                aux = True
-            else:
-                aux = False
+def archeologist(n):
+    if n in mem_arch:
+        return mem_arch[n]
 
-            #print(f'pow: {power_of_2} - n_digit: {n_digit} - pow_digit: {pow_digit} - aux: {aux}')
-             
-        if(len(str(2**i)) >= (num_digits*2+1) and aux):
-            print(i)
-            break
+    digits = len(str(n))
+    missing = digits + 1
+    lower_prefix = log2(n)
+    upper_prefix = log2(n + 1)
+
+    while True:
+        lower = lower_prefix + missing * LOG2_10
+        upper = upper_prefix + missing * LOG2_10
+        k = ceil(lower - EPS)
+
+        if k < upper - EPS:
+            mem_arch[n] = k
+            return k
+
+        missing += 1
+
 
 for line in stdin.readlines():
-    line = (line.strip())
-    num_digits = len(line)
-    line = int(line)
+    n = int(line.strip())
+    print(archeologist(n))
 
-    archeologist(line, num_digits)
-    #print(f"{line} -> {archeologist(line, num_digits)}")
