@@ -31,10 +31,13 @@ def min_sum_lcm(n):
     return total
 
 case_number = 1
+
 for line in stdin.readlines():
     n = int(line.strip())
+
     if n == 0:
         break
+    
     print(f"Case {case_number}: {min_sum_lcm(n)}")
     case_number += 1
 
