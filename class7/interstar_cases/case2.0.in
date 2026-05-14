@@ -1,0 +1,29 @@
+5 7
+A B 5
+B C 5
+A C 10
+A D 20
+C D 10
+D E 20
+A E 40
+20
+A B
+A C
+A D
+A E
+B A
+B C
+B D
+B E
+C A
+C B
+C D
+C E
+D A
+D B
+D C
+D E
+E A
+E B
+E C
+E D
